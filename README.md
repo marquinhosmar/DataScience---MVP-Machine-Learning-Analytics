@@ -1,7 +1,7 @@
 # DataScience---MVP-Machine-Learning-Analytics
 Trabalho apresentado na Sprint de Machine Learning &amp; Analitics da Pós Graduação de Ciência de Dados &amp; Analytics PUC Rio. 
 
-DESCRIÇÃO DO PROBLEMA
+## Descrição do Problema
 
 O conjunto de dados do Siconfi é um conjunto de dados multivariado que consiste em medidas que permitem analisar várias situações financeiras dos estados e municipios brasieliros, tais como: evolução da **`Receita`** e **`Despesa Pública`**, capacidade de **`Investimento`**, situação da responsabilidade fiscal, depência de transferências de outros entes, comparativos entre regiões, qualidade do gasto público, entre outros.
 
@@ -27,3 +27,18 @@ Restrigindo a amostra aos municipíos do estado do Ceará, as hipóteses que tra
 
 - É possível `classificar` a `saúde financeira` de um município com base em `indicadores demográficos` e `indicadores financeiros` relacionados ao `Investimento Público`?
 
+
+## Tipo de Problema
+
+Este é um problema de **`Classificação Supervisionada`**. Dado um conjunto de características como `Despesa Total`, `Depesa Corrente`, `Receita Total`, `Investimento`, `População`, etc, o objetivo é classificar se um município está em com dificuldades orçamentárias com base em seus indicadores de investimento público. Bem como a partir desses mesmos indicadores descobrir  indícios de Saúde Fiscal.
+
+## Seleção de Dados
+
+O dataset do siconfi é um conjunto de dados de domínio público, amplamente disponível e frequentemente incluído em bibliotecas de aprendizado de máquina. É utilizado para diversas finalidades de pesquisas econômicas, bem como no meio acadêmico. É necessária uma etapa de seleção de dados externa, pois o dataset possui muitos dados e de acordo com a finalidade é importante definir o que será filtrado.
+
+O dataset poderia ser carregado diretamente da API do Tesouro Nacional, porém para acelerar o processo de importação de dados o mesmo foi disponibilizado no github otimizando o tempo de execução no cobab de 10 minutos para aproximadmente 10 segundos.
+
+## Total e Tipo das Instâncias
+
+O dataset `df` possui 942.530 instâncias (observações), e 14 colunas. As características de medição são do tipo`float64` (ou ponto flutuante de 64 bits) é um tipo numérico usado para representar números decimais (com casas após a vírgula). Temos também o `int64` (ou inteiro de 64 bits) que é um tipo numérico usado para representar números inteiros (sem casas decimais). E por fim o tipo `object` que é um tipo de dados mais genérico, geralmente ele é usado para armazenar texto (strings).
+Não existe valores nulos e nem dados faltantes.
