@@ -42,3 +42,60 @@ O dataset poderia ser carregado diretamente da API do Tesouro Nacional, porém p
 
 O dataset `df` possui 942.530 instâncias (observações), e 14 colunas. As características de medição são do tipo`float64` (ou ponto flutuante de 64 bits) é um tipo numérico usado para representar números decimais (com casas após a vírgula). Temos também o `int64` (ou inteiro de 64 bits) que é um tipo numérico usado para representar números inteiros (sem casas decimais). E por fim o tipo `object` que é um tipo de dados mais genérico, geralmente ele é usado para armazenar texto (strings).
 Não existe valores nulos e nem dados faltantes.
+
+## Atributos do Dataset
+
+O dataset `df` contém 942.530 instâncias com 14 colunas:
+
+- ***exercicio*** : o ano em que os fatos contábeis ocorreram e foram registrados.
+- ***instituicao*** : descrição do nome do Município.
+- ***cod_ibge*** : código do estado segundo a classificação do IBGE.
+- ***uf*** : sigla do estado de localização dos Municípios.
+- ***anexo*** :  indica em qual anexo dos demonstrativos contábeis ou fiscais aquela conta aparece ou deve ser demonstrada, conforme exigências da contabilidade pública brasileira.
+- ***rotulo*** : é o nome oficial e padronizado da conta contábil, definido pela autoridade competente (como o Tesouro Nacional no caso do PCASP).
+- ***coluna*** : dia, mês e ano (coincide com o exercício).
+- ***cod_conta*** : número da conta do plano de contas.
+- ***conta*** : nome da conta.
+- ***valor*** : representa o montante financeiro associado àquela conta contábil.
+- ***populacao*** : população do município.
+- ***Município*** : repete novamente o município do estado.
+- ***Código_Municipio*** : código IBGE do município.
+- ***Ano*** : coincide com o ano de exercício.
+
+## Tratamento dos dados
+
+Baseado no foco do problema a ser analisado e nas hipóteses que precisam ser respondidas, foram feitos alguns comandos e ajustes para enxugar e tratar os dados disponíveis no DataFrame `df`. Nesta etapa a quantidade de linhas foram drasticamente reduzidas para 920. Houve uma mudança na composição de colunas. Como para a referida análise é necessário ter informações sobre a situação fiscal dos municípios, cada linha deste novo DataFrame representa um resumo financeiro anual para um município, com métricas chave já calculadas (Receita Total, Despesa Total, Investimento, etc.). Demais colunas desnecessárias foram removidas.
+
+## **O Deflator IPCA:**
+
+Para se evitar comparações enganosas de uma série temporal é importante deflacionar os valores com base em algum **`índice de preços`**. Com isso pode-se analisar o valor real ao longo do tempo neutralizando os efeitos da `inflação`. Isso permite comparações mais consistentes entre anos diferentes, e ao tomador de decisão ter embasamento mais preciso com base em dados reais.
+  
+O índice que será usado será o `IPCA(Índice de Preços ao Consumidor Amplo)` pois é o índice oficial de inflação usado pelo Banco Central do Brasil para definir a meta de inflação.
+O **`IPEADATA`** é uma fonte confiável de dados macroeconômicos brasileiros, e usar o `ipeadatapy` facilita muito a coleta. Foi deflacionado o DataFrame `df_limpo` criando um novo DataFrame com valores deflacionados. O nome do novo DataFrame é `df_real`.
+
+## Estatísticas Descritivas
+
+Estatísticas descritivas fornecem um resumo das características numéricas, incluindo média, desvio padrão, mínimo, máximo e quartis.
+
+## Média
+
+A média é uma medida de tendência central que representa o valor típico ou o ponto de equilíbrio de um conjunto de dados. É calculada somando-se todos os valores e dividindo-se pelo número total de observações. É sensível a valores extremos (outliers).
+
+A média dos **`Investimentos`** no período por município foi de  16.940.000,00 reais. A média da **`Despesa Total`** do período foi 202.030.000,00 reais. Essa relacao de **`Investimento`** sobre a **`Despesa Total`** representa um percentual em torno de `8,38%`.
+
+A média dos **`Investimentos`** considerando o mesmo período só que agora mudando a relação para **`Receita Total`** representa um percentual em torno de `7,66%`.
+
+
+## Desvio Padrão
+
+O desvio padrão é uma medida de dispersão que quantifica a quantidade de variação ou dispersão de um conjunto de valores. Um desvio padrão baixo indica que os pontos de dados tendem a estar próximos da média do conjunto, enquanto um desvio padrão alto indica que os pontos de dados estão espalhados por uma faixa maior de valores. Ele é a raiz quadrada da variância.
+
+Observamos que:
+- Grande desvio padrão em **`Receita`**, **`Despesa Total`** e **`Despesa Corrente`** em realação às médias, indica grande desigualdade entre os Municípios.
+
+- **`Despesas Correntes`** dominam o orçamento dos entes públicos, com média próxima à despesa total.
+- **`Investimentos`** são muito pequenos em comparação — representam uma pequena fração do orçamento.
+- O baixo desvio padrão de **`Investimentos`** sugere que mesmo os Municípios com maiores orçamentos não investem proporcionalmente mais, o investimento é geralmente baixo em todos.
+
+
+
